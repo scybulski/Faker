@@ -157,7 +157,11 @@ class Address extends \Faker\Provider\Address
         'Kuba',
 
         'Kuwait', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libyan Arab Jamahiriya',
-        'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagaskar', 'Makau', 'Makedonia',
+        'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagaskar', 'Makau',
+
+        // https://id.wikipedia.org/wiki/Makedonia_Utara
+        'Makedonia Utara',
+
         'Maladewa', 'Malawi', 'Malaysia', 'Mali', 'Malta', 'Maroko',
 
         // http://id.wikipedia.org/wiki/Martinique

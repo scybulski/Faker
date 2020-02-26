@@ -397,7 +397,7 @@ class Address extends \Faker\Provider\Address
             'Wakaf Tapai',
         )
     );
-    
+
     /**
      * @link https://en.wikipedia.org/wiki/States_and_federal_territories_of_Malaysia
      */
@@ -481,7 +481,7 @@ class Address extends \Faker\Provider\Address
         'Jamaika','Jepun','Jerman','Jordan',
         'Kanada','Kazakhstan','Kemboja','Kenya','Kiribati','Korea Selatan','Korea Utara','Kosovo','Kuwait','Kyrgyzstan',
         'Laos','Latvia','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Lubnan','Luxembourg',
-        'Macedonia','Madagaskar','Maghribi','Malawi','Malaysia','Maldives','Mali','Malta','Kepulauan Marshall','Mauritania','Mauritius','Mesir','Mexico','Persekutuan Micronesia','Moldova','Monaco','Montenegro','Mongolia','Mozambique','Myanmar',
+        'Macedonia Utara','Madagaskar','Maghribi','Malawi','Malaysia','Maldives','Mali','Malta','Kepulauan Marshall','Mauritania','Mauritius','Mesir','Mexico','Persekutuan Micronesia','Moldova','Monaco','Montenegro','Mongolia','Mozambique','Myanmar',
         'Namibia','Nauru','Nepal','New Zealand','Nicaragua','Niger','Nigeria','Niue','Norway',
         'Oman','Ossetia Selatan',
         'Pakistan','Palau','Palestin','Panama','Papua New Guinea','Paraguay','Perancis','Peru','Poland','Portugal',
@@ -679,7 +679,7 @@ class Address extends \Faker\Provider\Address
 
         return $postcode . ' ' . $town . ', ' . $state;
     }
-    
+
     /**
      * Return a random city (town)
      *
@@ -692,7 +692,7 @@ class Address extends \Faker\Provider\Address
         $state = static::randomElement(array_keys(static::$towns));
         return static::randomElement(static::$towns[$state]);
     }
-    
+
     /**
      * Return a random state
      *
