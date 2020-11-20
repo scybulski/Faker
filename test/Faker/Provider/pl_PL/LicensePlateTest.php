@@ -12,7 +12,7 @@ final class LicensePlateTest extends TestCase
      */
     private $faker;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $faker = new Generator();
         $faker->addProvider(new LicensePlate($faker));
@@ -27,8 +27,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 40; $i++) {
             $licensePlate = $this->faker->licensePlate;
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -40,8 +40,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 5; $i++) {
             $licensePlate = $this->faker->licensePlate(array('podkarpackie'));
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:R[A-Z] [A-Z\d]{5}|R[A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:R[A-Z] [A-Z\d]{5}|R[A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -53,8 +53,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 5; $i++) {
             $licensePlate = $this->faker->licensePlate(array('łódzkie', 'army'));
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[EU][A-Z] [A-Z\d]{5}|[EU][A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[EU][A-Z] [A-Z\d]{5}|[EU][A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -66,8 +66,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 5; $i++) {
             $licensePlate = $this->faker->licensePlate(array('fake voivodeship', 'fake voivodeship2'));
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -79,8 +79,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 5; $i++) {
             $licensePlate = $this->faker->licensePlate(array());
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -92,8 +92,8 @@ final class LicensePlateTest extends TestCase
         for ($i = 0; $i < 5; $i++) {
             $licensePlate = $this->faker->licensePlate(array(), array());
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -108,8 +108,8 @@ final class LicensePlateTest extends TestCase
                 array('Straż Graniczna', 'warszawski zachodni', 'radomski')
             );
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:WZ [A-Z\d]{5}|(?:WRA|HWA|HWK) [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:WZ [A-Z\d]{5}|(?:WRA|HWA|HWK) [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -124,8 +124,8 @@ final class LicensePlateTest extends TestCase
                 array('fake county')
             );
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -140,8 +140,8 @@ final class LicensePlateTest extends TestCase
                 array('Straż Graniczna', 'warszawski zachodni', 'radomski')
             );
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -156,8 +156,8 @@ final class LicensePlateTest extends TestCase
                 array('Straż Graniczna', 'warszawski zachodni', 'radomski')
             );
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -172,8 +172,8 @@ final class LicensePlateTest extends TestCase
                 array('Straż Graniczna', 'warszawski zachodni', 'radomski')
             );
             $this->assertNotEmpty($licensePlate);
-            $this->assertInternalType('string', $licensePlate);
-            $this->assertRegExp('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertIsString($licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
         }
     }
 }
