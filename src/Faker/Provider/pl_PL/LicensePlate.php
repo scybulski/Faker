@@ -12,7 +12,7 @@ use Faker\Provider\Base;
 class LicensePlate extends Base
 {
     /**
-     * @var array list of Polish voivodeships and respective car registration number prefixes.
+     * @var array list of Polish voivodeships and respective vehicle registration number prefixes.
      */
     protected static $voivodeships = [
         'dolnośląskie' => 'D',
@@ -30,13 +30,19 @@ class LicensePlate extends Base
         'świętokrzyskie' => 'T',
         'warmińsko-mazurskie' => 'N',
         'wielkopolskie' => 'P',
-        'zachodnio-pomorskie' => 'Z',
+        'zachodniopomorskie' => 'Z',
+    ];
+
+    /**
+     * @var array list of special vehicle registration number prefixes.
+     */
+    protected static $specials = [
         'army' => 'U',
         'services' => 'H',
     ];
 
     /**
-     * @var array list of Polish counties and respective car registration number prefixes.
+     * @var array list of Polish counties and respective vehicle registration number prefixes.
      */
     protected static $counties = [
         'D' => [
@@ -471,72 +477,72 @@ class LicensePlate extends Base
      * @var array list of regex expressions matching Polish license plate suffixess when county code is 1 character long.
      */
     protected static $plateSuffixesGroup1 = [
-            '\d{5}',
-            '\d{4}[A-P,R-Z]',
-            '\d{3}[A-P,R-Z]{2}',
-            '[1-9][A-P,R-Z]\d{3}',
-            '[1-9][A-P,R-Z]{2}\d{2}',
+        '\d{5}',
+        '\d{4}[A-PR-Z]',
+        '\d{3}[A-PR-Z]{2}',
+        '[1-9][A-PR-Z]\d{3}',
+        '[1-9][A-PR-Z]{2}\d{2}',
     ];
 
     /**
      * @var array list of regex expressions matching Polish license plate suffixess when county code is 2 characters long.
      */
     protected static $plateSuffixesGroup2 = [
-            '[A-P,R-Z]\d{3}',
-            '\d{2}[A-P,R-Z]{2}',
-            '[1-9][A-P,R-Z]\d{2}',
-            '\d{2}[A-P,R-Z][1-9]',
-            '[1-9][A-P,R-Z]{2}[1-9]',
-            '[A-P,R-Z]{2}\d{2}',
-            '\d{5}',
-            '\d{4}[A-P,R-Z]',
-            '\d{3}[A-P,R-Z]{2}',
-            '[A-P,R-Z]\d{2}[A-P,R-Z]',
-            '[A-P,R-Z][1-9][A-P,R-Z]{2}',
+        '[A-PR-Z]\d{3}',
+        '\d{2}[A-PR-Z]{2}',
+        '[1-9][A-PR-Z]\d{2}',
+        '\d{2}[A-PR-Z][1-9]',
+        '[1-9][A-PR-Z]{2}[1-9]',
+        '[A-PR-Z]{2}\d{2}',
+        '\d{5}',
+        '\d{4}[A-PR-Z]',
+        '\d{3}[A-PR-Z]{2}',
+        '[A-PR-Z]\d{2}[A-PR-Z]',
+        '[A-PR-Z][1-9][A-PR-Z]{2}',
     ];
 
     /**
      * Generates random license plate.
      *
-     * @param  array|null $voivodeships
-     * @param  array|null $counties
+     * @param  bool       $special      whether special license plates should be included
+     * @param  array|null $voivodeships list of voivodeships license plate should be generated from
+     * @param  array|null $counties     list of counties license plate should be generated from
      *
      * @return string
      */
-    public static function licensePlate(?array $voivodeships = null, ?array $counties = null): string
-    {
-        $availableVoivodeships = array_keys(static::$voivodeships);
-        $voivodeships = array_filter($voivodeships ?? [], function ($value) use ($availableVoivodeships) {
-            return in_array($value, $availableVoivodeships);
-        });
+    public static function licensePlate(
+        bool $special = false,
+        ?array $voivodeships = null,
+        ?array $counties = null
+    ): string {
+        $voivodeshipsAvailable = static::$voivodeships + ($special ? static::$specials : []);
+        $voivodeshipCode = static::selectRandomArea($voivodeshipsAvailable, $voivodeships);
 
-        if (count($voivodeships)) {
-            $voivodeship = static::randomElement($voivodeships);
+        $countiesAvailable = static::$counties[$voivodeshipCode];
+        $countySelected = self::selectRandomArea($countiesAvailable, $counties);
 
-            $voivodeshipCode = static::$voivodeships[$voivodeship];
-        } else {
-            $voivodeshipCode = static::randomElement(static::$voivodeships);
-        }
+        $countyCode = static::randomElement($countySelected);
 
-        $availableCounties = array_keys(static::$counties[$voivodeshipCode]);
-        $counties = array_filter($counties ?? [], function ($value) use ($availableCounties) {
-            return in_array($value, $availableCounties);
-        });
-
-        if (count($counties)) {
-            $countyCodes = static::$counties[$voivodeshipCode][static::randomElement($counties)];
-        } else {
-            $countyCodes = static::randomElement(static::$counties[$voivodeshipCode]);
-        }
-
-        $countyCode = static::randomElement($countyCodes);
-
-        if (strlen($countyCode) === 1) {
-            $suffix = static::regexify(static::randomElement(static::$plateSuffixesGroup1));
-        } else {
-            $suffix = static::regexify(static::randomElement(static::$plateSuffixesGroup2));
-        }
+        $suffix = static::regexify(static::randomElement(strlen($countyCode) === 1 ? static::$plateSuffixesGroup1 : static::$plateSuffixesGroup2));
 
         return "{$voivodeshipCode}{$countyCode} {$suffix}";
+    }
+
+    /**
+     * Selects random area from the list of available and requested.
+     *
+     * @param  array      $available
+     * @param  array|null $requested
+     * @return mixed
+     */
+    protected static function selectRandomArea(array $available, ?array $requested)
+    {
+        $requested = array_intersect(array_keys($available), $requested ?? []);
+
+        if (empty($requested)) {
+            $requested = array_keys($available);
+        }
+
+        return $available[static::randomElement($requested)];
     }
 }
