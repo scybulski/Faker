@@ -4,11 +4,15 @@ namespace Faker\Provider\pl_PL;
 
 use Faker\Provider\Base;
 
+/**
+ * Generator of Polish vehicle registration numbers.
+ * {@link} http://prawo.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170002355
+ * {@link} https://pl.wikipedia.org/wiki/Tablice_rejestracyjne_w_Polsce#Tablice_standardowe
+ */
 class LicensePlate extends Base
 {
     /**
      * @var array list of Polish voivodeships and respective car registration number prefixes.
-     * {@link}  http://prawo.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170002355
      */
     protected static $voivodeships = [
         'dolnośląskie' => 'D',
@@ -33,8 +37,6 @@ class LicensePlate extends Base
 
     /**
      * @var array list of Polish counties and respective car registration number prefixes.
-     * {@link} http://prawo.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170002355
-     * {@link} https://pl.wikipedia.org/wiki/Tablice_rejestracyjne_w_Polsce#Tablice_standardowe
      */
     protected static $counties = [
         'D' => [
@@ -466,24 +468,47 @@ class LicensePlate extends Base
     ];
 
     /**
+     * @var array list of regex expressions matching Polish license plate suffixess when county code is 1 character long.
+     */
+    protected static $plateSuffixesGroup1 = [
+            '\d{5}',
+            '\d{4}[A-P,R-Z]',
+            '\d{3}[A-P,R-Z]{2}',
+            '[1-9][A-P,R-Z]\d{3}',
+            '[1-9][A-P,R-Z]{2}\d{2}',
+    ];
+
+    /**
+     * @var array list of regex expressions matching Polish license plate suffixess when county code is 2 characters long.
+     */
+    protected static $plateSuffixesGroup2 = [
+            '[A-P,R-Z]\d{3}',
+            '\d{2}[A-P,R-Z]{2}',
+            '[1-9][A-P,R-Z]\d{2}',
+            '\d{2}[A-P,R-Z][1-9]',
+            '[1-9][A-P,R-Z]{2}[1-9]',
+            '[A-P,R-Z]{2}\d{2}',
+            '\d{5}',
+            '\d{4}[A-P,R-Z]',
+            '\d{3}[A-P,R-Z]{2}',
+            '[A-P,R-Z]\d{2}[A-P,R-Z]',
+            '[A-P,R-Z][1-9][A-P,R-Z]{2}',
+    ];
+
+    /**
      * Generates random license plate.
-     * Generation method based on the description from https://pl.wikipedia.org/wiki/Tablice_rejestracyjne_w_Polsce#Tablice_standardowe
      *
      * @param  array|null $voivodeships
      * @param  array|null $counties
      *
      * @return string
      */
-    public function licensePlate($voivodeships = null, $counties = null)
+    public static function licensePlate(?array $voivodeships = null, ?array $counties = null): string
     {
-        if (is_array($voivodeships)) {
-            $availableVoivodeships = array_keys(static::$voivodeships);
-            $voivodeships = array_filter($voivodeships, function ($value) use ($availableVoivodeships) {
-                return in_array($value, $availableVoivodeships);
-            });
-        } else {
-            $voivodeships = [];
-        }
+        $availableVoivodeships = array_keys(static::$voivodeships);
+        $voivodeships = array_filter($voivodeships ?? [], function ($value) use ($availableVoivodeships) {
+            return in_array($value, $availableVoivodeships);
+        });
 
         if (count($voivodeships)) {
             $voivodeship = static::randomElement($voivodeships);
@@ -493,14 +518,10 @@ class LicensePlate extends Base
             $voivodeshipCode = static::randomElement(static::$voivodeships);
         }
 
-        if (is_array($counties)) {
-            $availableCounties = array_keys(static::$counties[$voivodeshipCode]);
-            $counties = array_filter($counties, function ($value) use ($availableCounties) {
-                return in_array($value, $availableCounties);
-            });
-        } else {
-            $counties = [];
-        }
+        $availableCounties = array_keys(static::$counties[$voivodeshipCode]);
+        $counties = array_filter($counties ?? [], function ($value) use ($availableCounties) {
+            return in_array($value, $availableCounties);
+        });
 
         if (count($counties)) {
             $countyCodes = static::$counties[$voivodeshipCode][static::randomElement($counties)];
@@ -511,61 +532,11 @@ class LicensePlate extends Base
         $countyCode = static::randomElement($countyCodes);
 
         if (strlen($countyCode) === 1) {
-            switch (static::numberBetween(1, 5)) {
-                case 1:
-                    $randomCode = static::regexify('\d{5}');
-                    break;
-                case 2:
-                    $randomCode = static::regexify('\d{4}[A-Z]');
-                    break;
-                case 3:
-                    $randomCode = static::regexify('\d{3}[A-Z]{2}');
-                    break;
-                case 4:
-                    $randomCode = static::regexify('[1-9][A-Z]\d{3}');
-                    break;
-                default:
-                    $randomCode = static::regexify('[1-9][A-Z]{2}\d{2}');
-                    break;
-            }
+            $suffix = static::regexify(static::randomElement(static::$plateSuffixesGroup1));
         } else {
-            switch (static::numberBetween(1, 11)) {
-                case 1:
-                    $randomCode = static::regexify('[A-Z]\d{3}');
-                    break;
-                case 2:
-                    $randomCode = static::regexify('\d{2}[A-Z]{2}');
-                    break;
-                case 3:
-                    $randomCode = static::regexify('[1-9][A-Z]\d{2}');
-                    break;
-                case 4:
-                    $randomCode = static::regexify('\d{2}[A-Z][1-9]');
-                    break;
-                case 5:
-                    $randomCode = static::regexify('[1-9][A-Z]{2}[1-9]');
-                    break;
-                case 6:
-                    $randomCode = static::regexify('[A-Z]{2}\d{2}');
-                    break;
-                case 7:
-                    $randomCode = static::regexify('\d{5}');
-                    break;
-                case 8:
-                    $randomCode = static::regexify('\d{4}[A-Z]');
-                    break;
-                case 9:
-                    $randomCode = static::regexify('\d{3}[A-Z]{2}');
-                    break;
-                case 10:
-                    $randomCode = static::regexify('[A-Z]\d{2}[A-Z]');
-                    break;
-                default:
-                    $randomCode = static::regexify('[A-Z][1-9][A-Z]{2}');
-                    break;
-            }
+            $suffix = static::regexify(static::randomElement(static::$plateSuffixesGroup2));
         }
 
-        return "{$voivodeshipCode}{$countyCode} {$randomCode}";
+        return "{$voivodeshipCode}{$countyCode} {$suffix}";
     }
 }
