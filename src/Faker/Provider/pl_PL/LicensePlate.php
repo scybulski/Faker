@@ -471,28 +471,28 @@ class LicensePlate extends Base
      * @var array list of regex expressions matching Polish license plate suffixess when county code is 1 character long.
      */
     protected static $plateSuffixesGroup1 = [
-            '\d{5}',
-            '\d{4}[A-P,R-Z]',
-            '\d{3}[A-P,R-Z]{2}',
-            '[1-9][A-P,R-Z]\d{3}',
-            '[1-9][A-P,R-Z]{2}\d{2}',
+        '\d{5}',
+        '\d{4}[A-P,R-Z]',
+        '\d{3}[A-P,R-Z]{2}',
+        '[1-9][A-P,R-Z]\d{3}',
+        '[1-9][A-P,R-Z]{2}\d{2}',
     ];
 
     /**
      * @var array list of regex expressions matching Polish license plate suffixess when county code is 2 characters long.
      */
     protected static $plateSuffixesGroup2 = [
-            '[A-P,R-Z]\d{3}',
-            '\d{2}[A-P,R-Z]{2}',
-            '[1-9][A-P,R-Z]\d{2}',
-            '\d{2}[A-P,R-Z][1-9]',
-            '[1-9][A-P,R-Z]{2}[1-9]',
-            '[A-P,R-Z]{2}\d{2}',
-            '\d{5}',
-            '\d{4}[A-P,R-Z]',
-            '\d{3}[A-P,R-Z]{2}',
-            '[A-P,R-Z]\d{2}[A-P,R-Z]',
-            '[A-P,R-Z][1-9][A-P,R-Z]{2}',
+        '[A-P,R-Z]\d{3}',
+        '\d{2}[A-P,R-Z]{2}',
+        '[1-9][A-P,R-Z]\d{2}',
+        '\d{2}[A-P,R-Z][1-9]',
+        '[1-9][A-P,R-Z]{2}[1-9]',
+        '[A-P,R-Z]{2}\d{2}',
+        '\d{5}',
+        '\d{4}[A-P,R-Z]',
+        '\d{3}[A-P,R-Z]{2}',
+        '[A-P,R-Z]\d{2}[A-P,R-Z]',
+        '[A-P,R-Z][1-9][A-P,R-Z]{2}',
     ];
 
     /**
