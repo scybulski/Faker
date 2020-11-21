@@ -28,7 +28,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate;
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -41,7 +41,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate(array('podkarpackie'));
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:R[A-Z] [A-Z\d]{5}|R[A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:R[A-P,R-Z] [A-P,R-Z\d]{5}|R[A-P,R-Z]{2} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -54,7 +54,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate(array('łódzkie', 'army'));
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[EU][A-Z] [A-Z\d]{5}|[EU][A-Z]{2} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[EU][A-P,R-Z] [A-P,R-Z\d]{5}|[EU][A-P,R-Z]{2} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -67,7 +67,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate(array('fake voivodeship', 'fake voivodeship2'));
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -80,7 +80,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate(array());
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -93,7 +93,7 @@ final class LicensePlateTest extends TestCase
             $licensePlate = $this->faker->licensePlate(array(), array());
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -109,7 +109,7 @@ final class LicensePlateTest extends TestCase
             );
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:WZ [A-Z\d]{5}|(?:WRA|HWA|HWK) [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:WZ [A-P,R-Z\d]{5}|(?:WRA|HWA|HWK) [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -125,7 +125,7 @@ final class LicensePlateTest extends TestCase
             );
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -141,7 +141,7 @@ final class LicensePlateTest extends TestCase
             );
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -157,7 +157,7 @@ final class LicensePlateTest extends TestCase
             );
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 
@@ -173,7 +173,7 @@ final class LicensePlateTest extends TestCase
             );
             $this->assertNotEmpty($licensePlate);
             $this->assertIsString($licensePlate);
-            $this->assertMatchesRegularExpression('/^(?:[A-Z]{2} [A-Z\d]{5}|[A-Z]{3} [A-Z\d]{4,5})$/', $licensePlate);
+            $this->assertMatchesRegularExpression('/^(?:[A-P,R-Z]{2} [A-P,R-Z\d]{5}|[A-P,R-Z]{3} [A-P,R-Z\d]{4,5})$/', $licensePlate);
         }
     }
 }
